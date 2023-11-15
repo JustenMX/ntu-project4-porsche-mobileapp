@@ -9,11 +9,20 @@ import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 // } from "@react-native-material/core";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import porschelogo from "../assets/porschelogo.png";
+import { Button, Provider, TextInput } from "react-native-paper";
+// import DropDownPicker from 'react-native-dropdown-picker';
+import { SelectList } from "react-native-dropdown-select-list";
+
+
 
 function RegisterScreen() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [checked, setChecked] = useState(true);
+    const [model, setModel] = useState("");
+    const [selected, setSelected] = useState("");
+    // const [isOpen, setIsOpen] = useState(false);
+  
+
   
     const styles = StyleSheet.create({
       bgContainer: {
@@ -26,6 +35,7 @@ function RegisterScreen() {
       },
       authContainer: {
         flex: 1,
+        paddingHorizontal:50,
       },
       logo: {
         width: 150,
@@ -56,6 +66,34 @@ function RegisterScreen() {
         margin: 12,
       },
     });
+
+    const modelList = [
+        {
+          label: "Taycan",
+          value: "TAYCAN",
+        },
+        {
+          label: "Cayenne",
+          value: "CAYENNE",
+        },
+        {
+          label: "Panamera",
+          value: "PANAMERA",
+        },
+        {
+          label: "718",
+          value: "P718",
+        },
+        {
+          label: "911",
+          value: "P911",
+        },
+        {
+          label: "Macan",
+          value: "MACAN",
+        }
+      ];
+    
   
     return (
       <>
@@ -64,48 +102,69 @@ function RegisterScreen() {
           <View style={styles.container}>
             <Image style={styles.logo} source={porschelogo} />
           </View>
-  
-          {/* Login Credentials */}
-          {/* <View style={styles.authContainer}>
-            <Stack spacing={2} style={{ margin: 16 }}>
-              <TextInput
-                label="email"
-                variant="outlined"
-                trailing={(props) => (
-                  <IconButton
-                    icon={(props) => <Icon name="email" {...props} />}
-                    {...props}
-                    color="black"
-                  />
-                )}
-              />{" "}
-              <TextInput
-                label="password"
-                secureTextEntry
-                variant="outlined"
-                trailing={(props) => (
-                  <IconButton
-                    icon={(props) => <Icon name="lock" {...props} />}
-                    {...props}
-                    color="black"
-                  />
-                )}
-              />
-            </Stack>
-            <Stack fill center spacing={4}>
-              <Text>Sports+ Mode</Text>
-              <Switch
-                value={checked}
-                onValueChange={() => setChecked(!checked)}
-              />
-            </Stack>
-            <Button
-              title="Submit"
-              style={{ alignSelf: "center", marginTop: 20 }}
-              onPress={() => alert("🎉🎉🎉")}
-              color="black"
+
+          <View style={styles.authContainer}>
+          <TextInput
+            label="Name"
+            mode="outlined"
+            
+          ></TextInput>
+          <TextInput
+            label="Email"
+            mode="outlined"
+         
+          ></TextInput>
+          <TextInput
+            label="Password"
+            mode="outlined"
+          
+          ></TextInput>
+          <TextInput
+            label="Vehicle Number"
+            mode="outlined"
+           
+          ></TextInput>
+
+          <SelectList 
+            data={modelList} 
+            setSelected={setSelected}
+            dropdownStyles={{backgroundColor:'gray'}}
+            dropdownTextStyles={{color:'white'}}
+            placeholder="Select car model"
+            maxHeight={100}
             />
-          </View> */}
+
+          {/* <DropDownPicker
+            items={modelList}
+            open={isOpen}
+            setOpen={() => setIsOpen(!isOpen)}
+            value={model}
+            setValue={() => setModel(model)}
+            maxHeight={200}
+            autoScroll
+
+            placeholder="Select your car model"
+
+            showTickIcon={true}
+            showArrowIcon={true}
+            dropDownDirection="BOTTOM"
+            disableBorderRadius={true}
+            theme="LIGHT"
+
+
+          >
+
+          </DropDownPicker> */}
+        
+          <Button
+            style={{ marginTop: 15 }}
+            icon="send"
+            mode="contained"
+          >
+            Sign up
+          </Button>
+        </View>
+
         </ScrollView>
       </>
     );
