@@ -1,20 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import HomeScreen from "./screens/HomeScreen";
+// import SettingScreen from "./screens/SettingScreen";
+import LoginScreen from "./screens/LoginScreen";
+// import ScannerScreen from "./screens/ScannerScreen";
+// import CalendarScreen from "./screens/CalendarScreen";
 
-export default function App() {
+function App() {
+  const Tab = createBottomTabNavigator();
+
+  // const status = false;
+  // if (!status) {
+  //   return <LoginScreen />;
+  // }
+
   return (
-    <View style={styles.container}>
-      <Text>Porsche Service Mobile Application</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Login" component={LoginScreen} />
+        {/* <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingScreen} /> */}
+        {/* <Tab.Screen name="Calendar" component={CalendarScreen} />
+        <Tab.Screen name="Scanner" component={ScannerScreen} /> */}
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default App;
