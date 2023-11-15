@@ -9,6 +9,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 // } from "@react-native-material/core";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import porschelogo from "../assets/porschelogo.png";
+import { Button, TextInput } from "react-native-paper";
 
 function LoginScreen() {
   const [name, setName] = useState("");
@@ -63,6 +64,26 @@ function LoginScreen() {
         {/* logo */}
         <View style={styles.container}>
           <Image style={styles.logo} source={porschelogo} />
+        </View>
+
+        <View style={styles.authContainer}>
+          <TextInput
+            label="Email"
+            mode="outlined"
+            style={{ width: 300, marginLeft: 50 }}
+          ></TextInput>
+          <TextInput
+            label="Password"
+            mode="outlined"
+            style={{ width: 300, marginLeft: 50 }}
+          ></TextInput>
+          <Button
+            style={{ width: 300, marginLeft: 50, marginTop: 15 }}
+            icon="send"
+            mode="contained"
+          >
+            Login
+          </Button>
         </View>
 
         {/* Login Credentials */}
