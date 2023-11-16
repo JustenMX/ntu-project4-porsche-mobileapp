@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import SettingScreen from "./screens/SettingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import MapLocation from "./screens/MapLocation";
+import SvcLocationScreen from "./screens/SvcLocationScreen";
 // import ScannerScreen from "./screens/ScannerScreen";
 // import CalendarScreen from "./screens/CalendarScreen";
 
@@ -22,7 +22,7 @@ function App() {
       <Tab.Navigator>
         <Tab.Screen name="Login" component={LoginScreen} />
         <Tab.Screen name="Register" component={RegisterScreen} />
-        <Tab.Screen name="location" component={MapLocation} />
+        <Tab.Screen name="Location" component={SvcLocationScreen} />
         {/* <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingScreen} /> */}
         {/* <Tab.Screen name="Calendar" component={CalendarScreen} />

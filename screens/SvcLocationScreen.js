@@ -6,6 +6,7 @@ import {
   Text,
   Dimensions,
   Image,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
@@ -17,7 +18,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const destination = {latitude: 1.3074110934958647, longitude: 103.73432318271726};
 
-const MapLocation = () => {
+function SvcLocationScreen() {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [initialRegion, setInitialRegion] = useState(null);
 
@@ -44,9 +45,10 @@ const MapLocation = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View className="bg-white">
+    <View className="bg-white rounded-2xl p-4 mt-0 mb-4 shadow-md justify-items-center">
       {initialRegion && (
-        <MapView style={styles.map} initialRegion={initialRegion} showsUserLocation={true}>
+        <MapView className="w-5/5 h-4/5" initialRegion={initialRegion} showsUserLocation={true}>
           {currentLocation && (
             <Marker
               coordinate={{
@@ -55,8 +57,6 @@ const MapLocation = () => {
               }}
               title="destination"
             />
-
-            
           )}
 {/* 
           <MapViewDirections 
@@ -68,21 +68,13 @@ const MapLocation = () => {
             /> */}
         </MapView>
       )}
-      {/* Rest of your code */}
+
+     
     </View>
+    </View>       
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  map: {
-    width: "100%",
-    height: "100%",
-  },
-});
 
-export default MapLocation;
+
+export default SvcLocationScreen;
