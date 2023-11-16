@@ -1,32 +1,24 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import HomeScreen from "./screens/HomeScreen";
-// import SettingScreen from "./screens/SettingScreen";
+import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import RegistrationScreen from "./screens/RegistrationScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import SvcLocationScreen from "./screens/SvcLocationScreen";
-// import ScannerScreen from "./screens/ScannerScreen";
-// import CalendarScreen from "./screens/CalendarScreen";
 
 function App() {
   const Tab = createBottomTabNavigator();
-
-  // const status = false;
-  // if (!status) {
-  //   return <LoginScreen />;
-  // }
 
   return (
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Login" component={LoginScreen} />
-        <Tab.Screen name="Register" component={RegisterScreen} />
+
+        <Tab.Screen name="Registration" component={RegistrationScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Location" component={SvcLocationScreen} />
-        {/* <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingScreen} /> */}
-        {/* <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="Scanner" component={ScannerScreen} /> */}
+
       </Tab.Navigator>
     </NavigationContainer>
   );
