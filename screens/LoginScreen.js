@@ -11,7 +11,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 
-
 function LoginScreen() {
   const navigation = useNavigation();
 
@@ -29,11 +28,6 @@ function LoginScreen() {
     initialValues: {
       username: "",
       password: "",
-      
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Email Required"),
-    password: Yup.string().required("password Required"),
-  })
     },
 
     validationSchema: Yup.object({
@@ -109,6 +103,21 @@ function LoginScreen() {
             onChangeText={formik.handleChange("password")}
             onBlur={formik.handleBlur("password")}
             value={formik.values.password}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <Text className="text-red-500 text-xs font-bold">
+              {formik.errors.password}
+            </Text>
+          ) : null}
+
+          <View className="flex-row items-center mt-8">
+            <TouchableOpacity
+              className="flex-1 bg-gray-900 rounded px-4 py-2 items-center justify-center"
+              onPress={formik.handleSubmit}
+            >
+              <Text className="text-white text-base font-bold">Login</Text>
+            </TouchableOpacity>
+          </View>
 
           <View className="flex-row items-center">
             <TouchableOpacity
