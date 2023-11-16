@@ -13,9 +13,9 @@ function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Login" component={LoginScreen} />
-        <Tab.Screen name="Registration" component={RegistrationScreen} />
+        <Tab.Screen name="Register" component={RegistrationScreen} />
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Location" component={SvcLocationScreen} />
+        <Tab.Screen name="Service" component={SvcLocationScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
