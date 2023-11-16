@@ -10,9 +10,12 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from 'react-native-maps-directions';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
+const destination = {latitude: 1.3074110934958647, longitude: 103.73432318271726};
 
 const MapLocation = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -43,16 +46,26 @@ const MapLocation = () => {
   return (
     <View style={styles.container}>
       {initialRegion && (
-        <MapView style={styles.map} initialRegion={initialRegion}>
+        <MapView style={styles.map} initialRegion={initialRegion} showsUserLocation={true}>
           {currentLocation && (
             <Marker
               coordinate={{
-                latitude: currentLocation.latitude,
-                longitude: currentLocation.longitude,
+                latitude: destination.latitude,
+                longitude: destination.longitude,
               }}
-              title="Your Location"
+              title="destination"
             />
+
+            
           )}
+{/* 
+          <MapViewDirections 
+            origin={currentLocation}
+            destination={destination}
+           
+            strokeWidth={3}
+            strokeColor="hotpink"
+            /> */}
         </MapView>
       )}
       {/* Rest of your code */}
