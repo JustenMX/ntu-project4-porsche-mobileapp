@@ -10,9 +10,14 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Picker } from "@react-native-picker/picker";
-import porschelogo from "../assets/porschelogo.png";
+import { useNavigation } from "@react-navigation/native";
 
 function RegistrationScreen() {
+  const navigation = useNavigation();
+
+  const handleLoginPress = () => {
+    navigation.navigate("Login");
+  };
   /**
    * ==============================================
    * Formik with Yup validation
@@ -213,10 +218,20 @@ function RegistrationScreen() {
             </TouchableOpacity>
           </View>
 
-          <Text className="mt-4 text-xs text-gray-800">
-            Already have an account?
-            <Text className="underline text-blue-500"> Sign In</Text>
-          </Text>
+          <View className="flex-row items-center">
+            <TouchableOpacity
+              className="text-xs text-gray-800 mt-8"
+              onPress={handleLoginPress}
+            >
+              <Text>
+                Already have an account?
+                <Text className="text-sm underline text-blue-500">
+                  {" "}
+                  Sign In
+                </Text>
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>

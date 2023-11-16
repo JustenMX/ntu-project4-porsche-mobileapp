@@ -65,7 +65,7 @@ function LoginScreen() {
   });
 
   return (
-    <ScrollView className="bg-white">
+    <ScrollView className="bg-white just">
       <View className="flex items-center justify-between">
         <Image
           style={{
@@ -119,9 +119,24 @@ function LoginScreen() {
             </TouchableOpacity>
           </View>
 
-          <View>
+          {/* <Button className={"mt-4"}>
             <TouchableOpacity onPress={handleRegistrationPress}>
               <Text className="underline text-blue-500">Register</Text>
+            </TouchableOpacity>
+          </Button> */}
+
+          <View className="flex-row items-center">
+            <TouchableOpacity
+              className="text-xs text-gray-800 mt-8"
+              onPress={handleRegistrationPress}
+            >
+              <Text>
+                Do you have an account?
+                <Text className="text-sm underline text-blue-500">
+                  {" "}
+                  Sign Up
+                </Text>
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
