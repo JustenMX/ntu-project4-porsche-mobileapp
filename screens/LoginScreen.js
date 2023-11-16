@@ -10,11 +10,19 @@ import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import porschelogo from "../assets/porschelogo.png";
 import { Button, TextInput } from "react-native-paper";
+import * as Yup from "yup";
+import { Formik } from "formik";
+
 
 function LoginScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [checked, setChecked] = useState(true);
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Email Required"),
+    password: Yup.string().required("password Required"),
+  })
 
   const styles = StyleSheet.create({
     bgContainer: {
@@ -60,13 +68,24 @@ function LoginScreen() {
 
   return (
     <>
-      <ScrollView style={styles.bgContainer}>
+      <ScrollView className={"bg-white"}>
         {/* logo */}
         <View style={styles.container}>
           <Image style={styles.logo} source={porschelogo} />
         </View>
 
+        <Formik
+            initialValues={{ email: '', password: ''}}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {console.log(values)}}
+         >
+          {({
+              handleSubmit,
+              errors
+          }) => (
+
         <View style={styles.authContainer}>
+          
           <TextInput
             label="Email"
             mode="outlined"
@@ -81,10 +100,27 @@ function LoginScreen() {
             style={{ width: 300, marginLeft: 50, marginTop: 15 }}
             icon="send"
             mode="contained"
+            onPress={handleSubmit}
           >
             Login
           </Button>
+          <Text>{errors.email}</Text>
+          <Text>{errors.password}</Text>
+        
+          
         </View>
+        )}
+        </Formik>
+
+         {/* Start - Service Card */}
+         <View className="bg-emerald-100 rounded-2xl p-4 mt-4 mb-4 shadow-md">
+            <Text className="text-sm">3 Nov 2023</Text>
+            <Text className="text-xl font-bold">SMZ4044G</Text>
+            <Text className="text-base">Porsche Service Centre</Text>
+            <Text className="text-base">Tanjong Penjuru</Text>
+            <Text className="text-sm mt-2">32000KM</Text>
+          </View>
+          {/* End - Service Card */}
 
         {/* Login Credentials */}
         {/* <View style={styles.authContainer}>
