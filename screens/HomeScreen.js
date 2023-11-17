@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Image, ScrollView } from "react-native";
+import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 function HomeScreen() {
   return (
@@ -15,8 +15,19 @@ function HomeScreen() {
             uri: "https://res.cloudinary.com/doniqecd2/image/upload/v1700054447/PORSCHE/panamera.png",
           }}
         />
-        <Text className="text-center">Porsche Panamera Turbo</Text>
+        <Text className="text-center">Porsche Panamera Turbo S</Text>
         <Text className="text-center">SMZ4044G</Text>
+
+        <View className="flex-row items-center mt-8 mx-10">
+          <TouchableOpacity
+            className="flex-1 bg-gray-900 rounded px-4 py-2 items-center justify-center"
+            // onPress={formik.handleSubmit}
+          >
+            <Text className="text-white text-base font-bold">
+              Book an appointment
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View className="flex-2 items-center justify-between px-1">
