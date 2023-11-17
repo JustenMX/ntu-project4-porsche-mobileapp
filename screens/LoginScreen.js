@@ -14,7 +14,7 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import porschesgAPI from "../api/porschesgAPI";
 
-function LoginScreen() {
+function LoginScreen({ setIsLoggedIn }) {
   const navigation = useNavigation();
 
   const handleRegistrationPress = () => {
@@ -56,11 +56,10 @@ function LoginScreen() {
           AsyncStorage.setItem("userId", userId.toString());
           AsyncStorage.setItem("username", username);
 
-          // Set isLoggedIn to true in App component
-          // setIsLoggedIn(true);
-
           // Navigate to the desired screen
-          navigation.navigate("Home");
+          // navigation.navigate("Home");
+
+          setIsLoggedIn(true);
 
           // Alert.alert("Login Successful");
         } else {

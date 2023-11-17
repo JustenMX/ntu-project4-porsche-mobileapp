@@ -18,7 +18,7 @@ function App() {
     // Check authentication status from AsyncStorage
     const checkAuthenticationStatus = async () => {
       const jwtToken = await AsyncStorage.getItem("jwtToken");
-      setIsLoggedIn(!!jwtToken); // Set isLoggedIn to true if jwtToken exists
+      setIsLoggedIn(!!jwtToken);
     };
 
     checkAuthenticationStatus();
@@ -31,7 +31,17 @@ function App() {
           <>
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Service" component={SvcLocationScreen} />
-            <Tab.Screen name="Signout" component={SignoutScreen} />
+            {/* <Tab.Screen name="Signout" component={SignoutScreen} /> */}
+            <Tab.Screen name="Signout">
+              {(props) => (
+                <SignoutScreen
+                  {...props}
+                  setIsLoggedIn={(value) => {
+                    setIsLoggedIn(value);
+                  }}
+                />
+              )}
+            </Tab.Screen>
           </>
         ) : (
           <>

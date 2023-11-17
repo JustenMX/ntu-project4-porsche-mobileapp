@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function SignoutScreen() {
+function SignoutScreen({ setIsLoggedIn }) {
   const handleLogout = async () => {
     await AsyncStorage.removeItem("jwtToken");
     await AsyncStorage.removeItem("userId");
     await AsyncStorage.removeItem("username");
-    navigation.navigate("Login");
+    setIsLoggedIn(false);
   };
 
   return (
@@ -30,7 +30,7 @@ function SignoutScreen() {
         <View className="flex-row items-center mt-8">
           <TouchableOpacity
             className="flex-1 bg-gray-900 rounded px-4 py-2 items-center justify-center"
-            // onPress={formik.handleSubmit}
+            onPress={handleLogout}
           >
             <Text className="text-white text-base font-bold">Sign Out</Text>
           </TouchableOpacity>
