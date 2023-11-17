@@ -24,19 +24,21 @@ const destination = {latitude: 1.3074110934958647, longitude: 103.73432318271726
 function SvcLocationScreen() {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [initialRegion, setInitialRegion] = useState(null);
-  // const [distance, setDistance] = useState("");
+  const [distance, setDistance] = useState("");
 
 
   const mapViewRef = useRef(null);
 
 
-  // const calculateDistance = () => {
-  //   var dis = getDistance(
-  //     {latitude: 20.0504188, longitude: 64.4139099},
-  //     {latitude: 51.528308, longitude: -0.3817765},
-  //   );
-  //     setDistance(dis.toString);
-  // };
+  const calculateDistance = () => {
+    var dis = getDistance(
+      {latitude: currentLocation.latitude, longitude: currentLocation.longitude},
+      {latitude: destination.latitude, longitude: destination.longitude},
+    );
+
+    var round = Math.round(dis/1000);
+      setDistance(round);
+  };
   
 
   useEffect(() => {
@@ -49,6 +51,8 @@ function SvcLocationScreen() {
 
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location.coords);
+      
+      calculateDistance();
 
       setInitialRegion({
         latitude: location.coords.latitude,
@@ -90,13 +94,13 @@ function SvcLocationScreen() {
 
             <View className=" bg-blue-100 rounded-2xl p-4 mt-6 mb-5 shadow-md">
               
-              <Text className="text-xl font-bold">Porsche Service Centre </Text>
+              <Text className="text-xl font-bold">Porsche Service Centre ({distance} km)</Text>
               <Text className="text-base">27A Tanjong Penjuru, Singapore 609042</Text>
               <Text className="text-base">+(65)6331 0700</Text>
               <Text className="text-sm mt-2">Mon - Thur  : 8.30am - 6pm</Text>
               <Text className="text-sm mt-2 ml-14">Fri  : 8.30am - 5.30pm</Text>
               <Text className="text-sm mt-2 ml-14">Sat : 8.30am - 12.30pm</Text>
-              {/* <Text className="text-sm mt-2 ml-14">{distance}</Text> */}
+              <Text className="text-sm "></Text>
               
              
               
