@@ -44,7 +44,6 @@ function LoginScreen({ setIsLoggedIn }) {
           "/authentication/login",
           values
         );
-
         console.log("API Response:", response.data);
 
         if (response.data.jwt) {
@@ -55,19 +54,12 @@ function LoginScreen({ setIsLoggedIn }) {
           AsyncStorage.setItem("jwtToken", jwtToken);
           AsyncStorage.setItem("userId", userId.toString());
           AsyncStorage.setItem("username", username);
-
-          // Navigate to the desired screen
-          // navigation.navigate("Home");
-
           setIsLoggedIn(true);
-
-          // Alert.alert("Login Successful");
         } else {
-          // Alert.alert("Invalid username or password. Please try again.");
+          throw new Error("Authentication Error");
         }
       } catch (error) {
         console.error("Error:", error);
-        // Alert.alert("An error occurred. Please try again later.");
       }
     },
   });

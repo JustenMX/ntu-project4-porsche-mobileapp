@@ -11,6 +11,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import porschesgAPI from "../api/porschesgAPI";
 
 function RegistrationScreen() {
   const navigation = useNavigation();
@@ -30,7 +32,8 @@ function RegistrationScreen() {
       email: "",
       password: "",
       passwordConfirmation: "",
-      vehicleModel: "Select",
+      vehicleNo: "",
+      porscheModel: "Select",
       optMarketing: false,
       joinDate: new Date().toISOString(),
       isSubmitting: true,
@@ -41,8 +44,10 @@ function RegistrationScreen() {
       name: Yup.string()
         .max(15, "Must be 15 characters or less")
         .matches(/^[A-Za-z\s]+$/, "Only letters and spaces are allowed")
-        .required("Required"),
-      email: Yup.string().email("Invalid email address").required("Required"),
+        .required("Name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .matches(/[a-z]/, "Password must contain at least one lowercase letter")
@@ -53,7 +58,10 @@ function RegistrationScreen() {
         .label("confirm password")
         .required("Required")
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
-      vehicleModel: Yup.string().notOneOf(
+      vehicleNo: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Vehicle number is required"),
+      porscheModel: Yup.string().notOneOf(
         ["select"],
         "Vehicle model is required"
       ),
@@ -62,23 +70,19 @@ function RegistrationScreen() {
       const currentDate = new Date().toISOString();
       values.joinDate = currentDate;
 
-      // try {
-      //   // Post Method
-      //   const response = await springmartAPI.post("/user/register", values);
-      //   console.log("API Response:", response.data);
+      try {
+        // Post Method
+        const response = await porschesgAPI.post("/user/register", values);
+        console.log("API Response:", response.data);
 
-      //   if (response.status === 200) {
-      //     console.log("User registered successfully");
-      //     toast.success("Registered successfully");
-      //     setTimeout(() => {
-      //       navigate("/authenticate");
-      //     }, 2000);
-      //   } else {
-      //     throw new Error("Network Error");
-      //   }
-      // } catch (error) {
-      //   toast.error(error.message);
-      // }
+        if (response.status === 200) {
+          console.log("User registered successfully");
+        } else {
+          throw new Error("Network Error");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -156,27 +160,40 @@ function RegistrationScreen() {
             </Text>
           ) : null}
 
+          <TextInput
+            className="mt-4 px-4 py-2 rounded border border-gray-300"
+            placeholder="Vehicle No"
+            onChangeText={formik.handleChange("vehicleNo")}
+            onBlur={formik.handleBlur("vehicleNo")}
+            value={formik.values.vehicleNo}
+          />
+          {formik.touched.vehicleNo && formik.errors.vehicleNo ? (
+            <Text className="text-red-500 text-xs font-bold">
+              {formik.errors.vehicleNo}
+            </Text>
+          ) : null}
+
           <View className="mt-8">
             <Text className="text-xs text-gray-700">
               Select your vehicle model
             </Text>
             <Picker
-              selectedValue={formik.values.vehicleModel}
+              selectedValue={formik.values.porscheModel}
               onValueChange={(itemValue, itemIndex) =>
-                formik.setFieldValue("vehicleModel", itemValue)
+                formik.setFieldValue("porscheModel", itemValue)
               }
             >
               <Picker.Item label="Select 🚗" value="select" />
-              <Picker.Item label="Panamera" value="panamera" />
-              <Picker.Item label="911" value="p911" />
-              <Picker.Item label="718" value="p718" />
-              <Picker.Item label="Macan" value="macan" />
-              <Picker.Item label="Cayenne" value="cayenne" />
-              <Picker.Item label="Taycan" value="taycan" />
+              <Picker.Item label="Panamera" value="PANAMERA" />
+              <Picker.Item label="911" value="P911" />
+              <Picker.Item label="718" value="P718" />
+              <Picker.Item label="Macan" value="MACAN" />
+              <Picker.Item label="Cayenne" value="CAYENNE" />
+              <Picker.Item label="Taycan" value="TAYCAN" />
             </Picker>
-            {formik.touched.vehicleModel && formik.errors.vehicleModel && (
+            {formik.touched.porscheModel && formik.errors.porscheModel && (
               <Text className="text-red-500 text-xs font-bold">
-                {formik.errors.vehicleModel}
+                {formik.errors.porscheModel}
               </Text>
             )}
           </View>
