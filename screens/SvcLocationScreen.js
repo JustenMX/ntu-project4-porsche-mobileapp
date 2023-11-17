@@ -65,7 +65,7 @@ function SvcLocationScreen() {
     <View className="bg-white">
     <View className="bg-white rounded-2xl p-4 mt-0 mb-4 shadow-md justify-items-center">
       {initialRegion && (
-        <MapView className="w-5/5 h-4/6" initialRegion={initialRegion} showsUserLocation={true} ref={mapViewRef}>
+        <MapView className="w-5/5 h-3/5" initialRegion={initialRegion} showsUserLocation={true} ref={mapViewRef}>
           {currentLocation && (
             <Marker
               coordinate={{
@@ -88,10 +88,11 @@ function SvcLocationScreen() {
         
       )}
 
-            <View className=" bg-blue-100 rounded-2xl p-4 mt-4 mb-4 shadow-md">
+            <View className=" bg-blue-100 rounded-2xl p-4 mt-6 mb-5 shadow-md">
               
               <Text className="text-xl font-bold">Porsche Service Centre </Text>
               <Text className="text-base">27A Tanjong Penjuru, Singapore 609042</Text>
+              <Text className="text-base">+(65)6331 0700</Text>
               <Text className="text-sm mt-2">Mon - Thur  : 8.30am - 6pm</Text>
               <Text className="text-sm mt-2 ml-14">Fri  : 8.30am - 5.30pm</Text>
               <Text className="text-sm mt-2 ml-14">Sat : 8.30am - 12.30pm</Text>
