@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import SvcLocationScreen from "./screens/SvcLocationScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import SignoutScreen from "./screens/SignoutScreen";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,6 +31,7 @@ function App() {
           <>
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Service" component={SvcLocationScreen} />
+            <Tab.Screen name="Signout" component={SignoutScreen} />
           </>
         ) : (
           <>
