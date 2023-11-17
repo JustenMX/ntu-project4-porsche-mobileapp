@@ -41,25 +41,37 @@ function SvcLocationScreen() {
   };
   
 
+  
+
   useEffect(() => {
     const getLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         console.log("Permission to access location was denied");
+        setInitialRegion({
+          latitude:  1.290270, 
+          longitude: 103.851959,
+          latitudeDelta: 0.2,
+          longitudeDelta: 0.2,
+        });
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setCurrentLocation(location.coords);
-      
-      calculateDistance();
+      else {
 
-      setInitialRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0922,
-      });
+        let location = await Location.getCurrentPositionAsync({});
+        setCurrentLocation(location.coords);
+
+        setInitialRegion({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0922,
+        });
+      }
+     
+      
+
     };
 
     getLocation();
@@ -70,7 +82,7 @@ function SvcLocationScreen() {
     <View className="bg-white rounded-2xl p-4 mt-0 mb-4 shadow-md justify-items-center">
       {initialRegion && (
         <MapView className="w-5/5 h-3/5" initialRegion={initialRegion} showsUserLocation={true} ref={mapViewRef}>
-          {currentLocation && (
+          
             <Marker
               coordinate={{
                 latitude: destination.latitude,
@@ -78,7 +90,7 @@ function SvcLocationScreen() {
               }}
               title="Porsche Service Centre"
             />
-          )}
+         
 {/* 
           <MapViewDirections 
             origin={currentLocation}
@@ -94,18 +106,18 @@ function SvcLocationScreen() {
 
             <View className=" bg-blue-100 rounded-2xl p-4 mt-6 mb-5 shadow-md">
               
-              <Text className="text-xl font-bold">Porsche Service Centre ({distance} km)</Text>
+              <Text className="text-xl font-bold">Porsche Service Centre { distance != "" ? (<Text> ({distance} km)</Text>) : ""}</Text>
               <Text className="text-base">27A Tanjong Penjuru, Singapore 609042</Text>
               <Text className="text-base">+(65)6331 0700</Text>
               <Text className="text-sm mt-2">Mon - Thur  : 8.30am - 6pm</Text>
               <Text className="text-sm mt-2 ml-14">Fri  : 8.30am - 5.30pm</Text>
               <Text className="text-sm mt-2 ml-14">Sat : 8.30am - 12.30pm</Text>
-              <Text className="text-sm "></Text>
+              
               
              
               
       
-              <TouchableOpacity className=" bg-gray-900 mt-2 rounded px-4 py-2 items-center justify-center"  onPress= {() => mapViewRef.current.animateToRegion( destination, 1000)}>
+              <TouchableOpacity className=" bg-gray-900 mt-2 rounded px-4 py-2 items-center justify-center"  onPress= {() => {mapViewRef.current.animateToRegion( destination, 1000); {currentLocation && calculateDistance();}}}>
                 <Text className="text-white text-base font-bold">
                   Search
                 </Text>
