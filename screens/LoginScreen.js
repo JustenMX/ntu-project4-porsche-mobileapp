@@ -15,7 +15,7 @@ function LoginScreen() {
   const navigation = useNavigation();
 
   const handleRegistrationPress = () => {
-    navigation.navigate("Registration");
+    navigation.navigate("Register");
   };
 
   /**
@@ -128,7 +128,7 @@ function LoginScreen() {
                 Do you have an account?
                 <Text className="text-sm underline text-blue-500">
                   {" "}
-                  Sign Up
+                  Register
                 </Text>
               </Text>
             </TouchableOpacity>
