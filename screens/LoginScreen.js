@@ -7,9 +7,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import porschesgAPI from "../api/porschesgAPI";
 
 function LoginScreen() {
   const navigation = useNavigation();
@@ -36,31 +39,37 @@ function LoginScreen() {
     }),
 
     onSubmit: async (values) => {
-      // try {
-      //   const response = await springmartAPI.post(
-      //     "/authentication/login",
-      //     values
-      //   );
-      //   console.log("API Response:", response.data);
+      try {
+        const response = await porschesgAPI.post(
+          "/authentication/login",
+          values
+        );
 
-      //   if (response.data.jwt) {
-      //     const jwtToken = response.data.jwt;
-      //     const { userId, username } = response.data.springUserAuth;
+        console.log("API Response:", response.data);
 
-      //     localStorage.setItem("jwtToken", jwtToken);
-      //     localStorage.setItem("userId", userId);
-      //     localStorage.setItem("username", username);
+        if (response.data.jwt) {
+          const jwtToken = response.data.jwt;
+          const { userId, username } = response.data.porscheUserAuth;
 
-      //     setTimeout(() => {
-      //       navigate("/springmart");
-      //     }, 2000);
-      //   } else {
-      //     toast.error("Invalid username or password. Please try again.");
-      //   }
-      // } catch (error) {
-      //   console.error("Error", error);
-      // }
-      alert(JSON.stringify(values, null, 2));
+          // Use AsyncStorage or other storage solution for React Native
+          AsyncStorage.setItem("jwtToken", jwtToken);
+          AsyncStorage.setItem("userId", userId.toString());
+          AsyncStorage.setItem("username", username);
+
+          // Set isLoggedIn to true in App component
+          // setIsLoggedIn(true);
+
+          // Navigate to the desired screen
+          navigation.navigate("Home");
+
+          // Alert.alert("Login Successful");
+        } else {
+          // Alert.alert("Invalid username or password. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        // Alert.alert("An error occurred. Please try again later.");
+      }
     },
   });
 
