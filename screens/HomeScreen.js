@@ -1,22 +1,71 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import porscheAPI from "../api/porscheAPI";
+import vehicleImageURL from "../utility/vehicleImage";
 
 function HomeScreen() {
+  const [porscheUser, setPorscheUser] = useState({});
+
+  useEffect(() => {
+    const getPorscheUser = async () => {
+      try {
+        // Retrieve the items using await
+        const jwtToken = await AsyncStorage.getItem("jwtToken");
+        console.log(jwtToken);
+        const userId = await AsyncStorage.getItem("userId");
+        console.log(userId);
+
+        const headers = {
+          Authorization: `Bearer ${jwtToken}`,
+        };
+
+        console.log(`Request URL: ${porscheAPI.defaults.baseURL}/${userId}`);
+        console.log("Request Headers:", headers);
+
+        const response = await porscheAPI.get(`/user/${userId}`, { headers });
+        console.log(response);
+        console.log(response.data);
+        setPorscheUser(response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    getPorscheUser();
+  }, []);
+
+  console.log(porscheUser);
+
+  const getImageUrl = () => {
+    const { porscheModel } = porscheUser;
+
+    if (porscheModel && vehicleImageURL[porscheModel]) {
+      return vehicleImageURL[porscheModel];
+    } else {
+      return null;
+    }
+  };
+
+  const modelImageUrl = getImageUrl();
+
   return (
     <ScrollView className="bg-white">
       <View className="flex-2 items-center justify-between">
         <Text className="text-2xl font-extrabold text-center m-2">
-          Hello Justen.
+          Hello {porscheUser.name}.
         </Text>
         <Text className="text-center mb-5">Welcome to Porsche Singapore</Text>
-        <Image
-          className="w-80 h-40 object-contain mb-2"
-          source={{
-            uri: "https://res.cloudinary.com/doniqecd2/image/upload/v1700054447/PORSCHE/panamera.png",
-          }}
-        />
-        <Text className="text-center">Porsche Panamera Turbo S</Text>
-        <Text className="text-center">SMZ8088G</Text>
+
+        {modelImageUrl && (
+          <Image
+            className="w-80 h-40 object-contain mb-2"
+            source={{ uri: modelImageUrl }}
+          />
+        )}
+
+        <Text className="text-center">{porscheUser.porscheModel} TURBO S</Text>
+        <Text className="text-center">{porscheUser.vehicleNo}</Text>
 
         <View className="flex-row items-center mt-8 mx-10">
           <TouchableOpacity
