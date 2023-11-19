@@ -12,7 +12,7 @@ import * as Yup from "yup";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import porschesgAPI from "../api/porschesgAPI";
+import porscheAPI from "../api/porscheAPI";
 
 function RegistrationScreen() {
   const navigation = useNavigation();
@@ -72,9 +72,9 @@ function RegistrationScreen() {
 
       try {
         // Post Method
-        const response = await porschesgAPI.post("/user/register", values);
+        const response = await porscheAPI.post("/user/register", values);
         console.log("API Response:", response.data);
-
+        navigation.navigate("Login");
         if (response.status === 200) {
           console.log("User registered successfully");
         } else {
@@ -83,7 +83,7 @@ function RegistrationScreen() {
       } catch (error) {
         console.error("Error:", error);
       }
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 
