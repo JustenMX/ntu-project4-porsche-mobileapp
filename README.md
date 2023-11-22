@@ -1,5 +1,3 @@
-# ntu-project4-porschesvc-mobileapp
-
 ## Project Overview
 
 **Project Name:** Porsche Service Application - Mobile App
